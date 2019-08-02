@@ -14,7 +14,6 @@ public class CodingExamB {
 	 * the final file output will look like.
 	 */
 	
-	
 	public static String getLoggingInfo(String fileName) {
 		/*
 		 * 1. Complete the getLoggingInfoMethod.
@@ -27,10 +26,67 @@ public class CodingExamB {
 		
 		String large = "";
 		
-		//START HERE
-		
-		
-		return large;
+		try {
+			BufferedReader br = new BufferedReader(new FileReader(fileName));
+			int line = 0;
+			FileReader fr = new FileReader(fileName);
+
+			
+//			String fileContent = "";
+//			for(int i = 0; i<7; i++) {
+//				fileContent = fileContent + fr.read();
+//			}
+//			for(int i = 0; i<fileName.length()-8; i++) {
+//				String content = fileContent.substring(0,fileContent.length()-1) + fr.read();
+//				if(content.equals("//TODO:")) {
+//					System.out.println("yay");
+//					String fread = "" + fr.read();
+//					String str = content;
+//					if(fread.equals("\n")) {
+//						large = large + line + ": " + str + "\n";
+//					}
+//					else {
+//					str = str + fr.read();
+//				}
+//					}
+//			}
+//			
+			boolean end = false;
+			String file = "";
+			
+			
+			
+			//Start HERE
+			
+			while(end == false) {
+				//for(int i = 0; i<; i++) {
+				if(br.readLine() == null) {
+					System.out.println("end");
+					end = true;
+				}
+				line++;
+				
+				file += br.readLine();
+			
+				String content = br.readLine();
+				if(content.contains("//TODO:")) {
+					large = large + line + ": " + content + "\n";
+				}
+				}
+			
+				
+			
+			br.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		String file = "File:  " + fileName + "\n";
+		String finish = file + large;
+		return finish;
 	}
 	
 	public static void main(String[] args) {
@@ -43,5 +99,16 @@ public class CodingExamB {
 		 * 2. Write the finalLogString to a file called TODO_Log.txt. The file should match TODO_Log_example.txt. 
 		 */
 
+		
+	try {
+		FileWriter fw = new FileWriter("src/Coding_Exam_B/TODO_Log.txt");
+		fw.write(finalLogString);
+		fw.close();
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	
+		
 	}
 }
