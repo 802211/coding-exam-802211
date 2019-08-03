@@ -28,52 +28,36 @@ public class CodingExamB {
 		
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(fileName));
+			BufferedReader br2 = new BufferedReader(new FileReader(fileName));
 			int line = 0;
-			FileReader fr = new FileReader(fileName);
-
-			
-//			String fileContent = "";
-//			for(int i = 0; i<7; i++) {
-//				fileContent = fileContent + fr.read();
-//			}
-//			for(int i = 0; i<fileName.length()-8; i++) {
-//				String content = fileContent.substring(0,fileContent.length()-1) + fr.read();
-//				if(content.equals("//TODO:")) {
-//					System.out.println("yay");
-//					String fread = "" + fr.read();
-//					String str = content;
-//					if(fread.equals("\n")) {
-//						large = large + line + ": " + str + "\n";
-//					}
-//					else {
-//					str = str + fr.read();
-//				}
-//					}
-//			}
-//			
-			boolean end = false;
-			String file = "";
-			
-			
-			
-			//Start HERE
-			
-			while(end == false) {
-				//for(int i = 0; i<; i++) {
-				if(br.readLine() == null) {
-					System.out.println("end");
-					end = true;
-				}
-				line++;
+		
+			int count = 0;
+			while(br.readLine()!=null) {
+				count++;
+			}
+		
+				for(int i = 0; i<count; i++) {
 				
-				file += br.readLine();
-			
-				String content = br.readLine();
+				line++;
+				String content = br2.readLine();
+				
 				if(content.contains("//TODO:")) {
+					
+					for(int j = 0; j<content.length()-7; j++) {
+						String sub = content.substring(j, j+7);
+						if(sub.equals("//TODO:")) {
+							content = content.substring(j, content.length());
+						}
+					}
+					if(line <= 10) {
+					large = large + line + ":  " + content + "\n";
+					}
+					else {
 					large = large + line + ": " + content + "\n";
+					}
 				}
+				
 				}
-			
 				
 			
 			br.close();
@@ -84,8 +68,11 @@ public class CodingExamB {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		String file = "File:  " + fileName + "\n";
-		String finish = file + large;
+		
+		
+		
+		String file = "File: " + fileName + "\n";
+		String finish = file + large + "\n";
 		return finish;
 	}
 	
